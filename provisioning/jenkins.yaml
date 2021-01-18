@@ -1,0 +1,45 @@
+---
+
+- name: Setting up a Jenkins instance
+  hosts: default
+
+  gather_facts: yes
+
+  become: yes
+
+  tasks:
+    - name: Update
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install dependencies
+      apt:
+        pkg:
+          - openjdk-11-jdk
+          - python3
+          - python3-pip
+            #           - docker
+            #           - docker-compose
+
+    - name: Get the Jenkins key from the official servers
+      apt_key:
+        url: https://pkg.jenkins.io/debian/jenkins.io.key
+        state: present
+
+    - name: Adding the Jenkins deb repo to the source list
+      apt_repository:
+        repo: deb http://pkg.jenkins-ci.org/debian-stable binary/
+        state: present
+        filename: "jenkins"
+        update_cache: yes
+
+    - name: Manually update_cache
+      apt:
+        update_cache: yes
+
+    - name: Installing Jenkins and start
+      apt:
+        name: jenkins
+        state: present
+        force: yes
