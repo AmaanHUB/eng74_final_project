@@ -9,3 +9,5 @@
 
 **Jenkins Subnet IP CIDR**
 74.11.3.0/24
+
+![](images/vpc_diagram_rough.png)
