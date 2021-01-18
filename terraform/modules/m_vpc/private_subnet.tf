@@ -13,12 +13,12 @@ resource "aws_network_acl" "private_nacl" {
 	vpc_id = aws_vpc.main.id
 	subnet_ids = [aws_subnet.private_subnet.id]
 
-	# allow SSH from public subnet
+	# allow SSH from controller subnet
 	ingress {
 		protocol = "tcp"
 		rule_no = 100
 		action = "allow"
-		cidr_block = "74.11.1.0/24"
+		cidr_block = "74.11.3.0/24"
 		from_port = 22
 		to_port = 22
 	}

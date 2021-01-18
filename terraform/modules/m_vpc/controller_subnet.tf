@@ -1,37 +1,22 @@
 # create public subnet
-resource "aws_subnet" "jenkins_subnet" {
+resource "aws_subnet" "controller_subnet" {
 	vpc_id = aws_vpc.main.id
 	cidr_block = "74.11.3.0/24"
 	map_public_ip_on_launch = true
 	tags = {
-		Name = "eng74-fp-jenkins_subnet"
+		Name = "eng74-fp-controller_subnet"
 	}
 }
-
-# # create route table for public subnet IGW
-# resource "aws_route_table" "public_rt"{
-# 	vpc_id = aws_vpc.main.id
-
-# 	route {
-# 		cidr_block = "0.0.0.0/0"
-# 		gateway_id = aws_internet_gateway.main_igw.id
-# 	}
-
-# 	tags = {
-# 		Name = "eng74-fp-public_rt"
-# 	}
-# }
-
 # configuring route table association
-resource "aws_route_table_association" "jenkins_subnet_assoc"{
-	subnet_id = aws_subnet.jenkins_subnet.id
+resource "aws_route_table_association" "controller_subnet_assoc"{
+	subnet_id = aws_subnet.controller_subnet.id
 	route_table_id = aws_route_table.public_rt.id
 }
 
-# create NACL for jenkins subnet
-resource "aws_network_acl" "jenkins_nacl" {
+# create NACL for controller subnet
+resource "aws_network_acl" "controller_nacl" {
 	vpc_id = aws_vpc.main.id
-	subnet_ids = [aws_subnet.jenkins_subnet.id]
+	subnet_ids = [aws_subnet.controller_subnet.id]
 
 	# allow HTTP from all
 	ingress {
@@ -73,12 +58,12 @@ resource "aws_network_acl" "jenkins_nacl" {
 		to_port = 65535
 	}
 
-	# allow SSH from matt
+	# allow SSH for extra user
 	ingress {
 		protocol = "tcp"
 		rule_no = 140
 		action = "allow"
-		cidr_block = "84.69.102.61/32"
+		cidr_block = "${var.extra_user_ip}/32"
 		from_port = 22
 		to_port = 22
 	}
@@ -138,12 +123,12 @@ resource "aws_network_acl" "jenkins_nacl" {
 		protocol = "tcp"
 		rule_no = 150
 		action = "allow"
-		cidr_block = "84.69.102.61/32"
+		cidr_block = "${var.extra_user_ip}/32"
 		from_port = 22
 		to_port = 22
 	}
 
 	tags = {
-		Name = "eng74-fp-jenkins_nacl"
+		Name = "eng74-fp-controller_nacl"
 	}
 }

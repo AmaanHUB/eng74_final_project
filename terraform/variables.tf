@@ -1,14 +1,22 @@
-# using variables tf instead of hardcoding in main.tf
+# VARIABLES FOR MAIN
 variable "region" {
     default = "eu-west-1"
 }
 
-variable "ami_mongo" {
+variable "ami_app" {
+    default = "ami-0651ff04b9b983c9f"
+}
+
+variable "ami_db" {
     default = "ami-03646b6976790491d"
 }
 
-variable "ami_app" {
+variable "ami_jenkins" {
     default = "ami-0651ff04b9b983c9f"
+}
+
+variable "ami_ubuntu" {
+    default = "ami-0dc8d444ee2a42d8a"
 }
 
 variable "instance_type" {
@@ -21,4 +29,8 @@ variable "aws_key_name" {
 
 variable "aws_key_path" {
     default = "~/.ssh/eng74_fp_aws_key.pem"
+}
+
+variable "extra_user_ip" {
+    default = "84.69.102.61"
 }
