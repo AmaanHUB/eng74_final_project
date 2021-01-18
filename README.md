@@ -7,4 +7,4 @@
 - Leo: terraform
 - Matt: jenkins pipeline
 - Hubert: monitoring
-- Amaan: docker
+- Amaan: Docker and Ansible
