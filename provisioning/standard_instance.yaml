@@ -8,9 +8,8 @@
   become: yes
 
   tasks:
-    - name: Update and upgrade
+    - name: Update
       apt:
-        upgrade: yes
         update_cache: yes
         cache_valid_time: 3600
 
@@ -31,7 +30,7 @@
 
     - name: Adding the docker repo
       apt_repository:
-        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
       notify: update_cache
 
     - name: Install docker and related software
@@ -43,10 +42,11 @@
 
     - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
       get_url:
-        url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)
+        url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
-        mode: '0755'
+        mode: 'u+x,g+x'
 
+    # Can pull default docker image here or something when it has been made
 
   handlers:
     - name: update_cache
