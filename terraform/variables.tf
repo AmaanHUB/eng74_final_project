@@ -4,19 +4,19 @@ variable "region" {
 }
 
 variable "ami_app" {
-  default = "ami-0489ce290f126c3e4"
+  default = "ami-0c2736f128eb22c2d"
 }
 
 variable "ami_db" {
-  default = "ami-03646b6976790491d"
+  default = "ami-0c2736f128eb22c2d"
 }
 
 variable "ami_jenkins" {
-  default = "ami-05d324167a55228fe"
+  default = "ami-078794af7c7160802"
 }
 
 variable "ami_ubuntu" {
-  default = "ami-0dc8d444ee2a42d8a"
+  default = "ami-0c2736f128eb22c2d"
 }
 
 variable "instance_type" {
