@@ -21,7 +21,7 @@
 		},
 		"instance_type": "t2.micro",
 		"ssh_username": "ubuntu",
-		"ami_name": "eng74-standard-final"
+		"ami_name": "eng74_standard_final"
 		}
 	],
 	"provisioners": [
