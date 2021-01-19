@@ -21,13 +21,13 @@
 		},
 		"instance_type": "t2.micro",
 		"ssh_username": "ubuntu",
-		"ami_name": "eng74-Jenkins_final"
+		"ami_name": "eng74-Jenkins-final"
 		}
 	],
 	"provisioners": [
 		{
 			"type": "ansible",
-			"playbook_file": "../provisioning/jenkins.yaml"
+			"playbook_file": "/home/amaan/Assorted-Projects/Work/Sparta-Training/DevOps/eng74_final_project/provisioning/jenkins.yaml"
 		}
 	]
 }
