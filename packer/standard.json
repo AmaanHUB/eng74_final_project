@@ -27,7 +27,7 @@
 	"provisioners": [
 		{
 			"type": "ansible",
-			"playbook_file": "./provisioning/standard_instance.yaml"
+			"playbook_file": "../provisioning/standard_instance.yaml"
 		}
 	]
 }
