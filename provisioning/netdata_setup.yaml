@@ -1,6 +1,6 @@
 ---
 
-- name: Netdata installation, does not run
+- name: Netdata installation
   hosts: default
 
   gather_facts: yes
