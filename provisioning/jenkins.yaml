@@ -43,11 +43,3 @@
         name: jenkins
         state: present
         force: yes
-
-    - name: Install python pytest
-      pip:
-        - name: pytest
-
-    - name: Install python app requirements
-      pip:
-        requirements: ./requirements.txt
