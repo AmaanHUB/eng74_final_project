@@ -11,9 +11,9 @@
     - name: Get the file for installation
       get_url:
         url: https://my-netdata.io/kickstart.sh
-        state: present
+        dest: /root/
         mode: 'u+x,g+x'
 
   # need to double check this bit
     - name: Install the file
-      shell: bash kickstart.sh all --non-interactive
+      shell: bash /root/kickstart.sh all --non-interactive
