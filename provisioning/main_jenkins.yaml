@@ -5,3 +5,6 @@
 
 - name: EC2 instance setup
   import_playbook: jenkins.yaml
+
+- name: Install docker etc
+  import_playbook: standard_instance.yaml
