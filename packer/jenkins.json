@@ -21,7 +21,7 @@
 		},
 		"instance_type": "t2.micro",
 		"ssh_username": "ubuntu",
-		"ami_name": "eng74-amaan-packer-APP"
+		"ami_name": "eng74-Jenkins_final"
 		}
 	],
 	"provisioners": [
