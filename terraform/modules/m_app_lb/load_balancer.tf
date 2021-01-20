@@ -3,13 +3,17 @@ resource "aws_lb" "app_lb" {
     name = "eng74-fp-applb"
     load_balancer_type = "network"
     subnets = [var.public_subnet_id]
+
+    tags = {
+        Environment = "Production"
+    }
 }
 
 # target group
 resource "aws_lb_target_group" "app_lb_target_group" {
     name = "eng74-fp-targetgroup"
     port = "80"
-    protocol = "HTTP"
+    protocol = "TCP"
     vpc_id = var.vpc_id
 
     tags = {
