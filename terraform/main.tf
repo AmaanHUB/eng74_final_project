@@ -62,3 +62,13 @@ module "jenkins" {
   app_ip            = module.app.ec2_private_ip
   data_file         = var.jenkins_file
 }
+
+module "app_lb" {
+  source = "./modules/m_app_lb"
+
+  app_ami = var.ami_app
+  instance_type = var.instance_type
+  app_sg_id = module.sg.app_sg_id
+  public_subnet_id = module.vpc.public_subnet_id
+  vpc_id = module.vpc.vpc_id
+}
