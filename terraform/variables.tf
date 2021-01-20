@@ -19,6 +19,10 @@ variable "ami_ubuntu" {
   default = "ami-0c2736f128eb22c2d"
 }
 
+variable "ami_lb" {
+  default = "ami-09841ca4ebfb5c030"
+}
+
 variable "instance_type" {
   default = "t2.micro"
 }
@@ -36,5 +40,5 @@ variable "extra_user_ip" {
 }
 
 variable "jenkins_file" {
-  default = "jenkins.tpl"
+  default = "jenkins.sh"
 }

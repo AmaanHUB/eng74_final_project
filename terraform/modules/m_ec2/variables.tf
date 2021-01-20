@@ -12,6 +12,8 @@ variable "security_group_id" {}
 
 variable "aws_key_name" {}
 
+variable "aws_key_path" {}
+
 variable "name_tag" {}
 
 variable "associate_pub_ip" {
@@ -23,5 +25,5 @@ variable "app_ip" {
 }
 
 variable "data_file" {
-  default = "default.tpl"
+  default = "default.sh"
 }
