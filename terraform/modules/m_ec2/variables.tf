@@ -1,7 +1,7 @@
 # VARIABLES FOR EC2 MODULE
 
 variable "ami_id" {
-    description = "AMI for EC2 instance"
+  description = "AMI for EC2 instance"
 }
 
 variable "subnet_id" {}
@@ -15,5 +15,13 @@ variable "aws_key_name" {}
 variable "name_tag" {}
 
 variable "associate_pub_ip" {
-    default = true
+  default = true
+}
+
+variable "app_ip" {
+  default = ""
+}
+
+variable "data_file" {
+  default = "default.tpl"
 }
