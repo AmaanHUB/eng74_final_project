@@ -34,13 +34,18 @@
           - docker-ce-cli
           - containerd.io
 
+    - name: Sort out permissions on docker.sock so Jenkins etc may have permissions
+      file:
+        path: /var/run/docker.sock
+        owner: root
+        group: root
+        mode: '0666'
+
     - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
       get_url:
         url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 'u+x,g+x'
-
-    # Can pull default docker image here or something when it has been made
 
   handlers:
     - name: update_cache

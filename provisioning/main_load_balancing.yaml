@@ -1,0 +1,10 @@
+---
+
+- name: Netdata setup
+  import_playbook: netdata_setup.yaml
+
+- name: EC2 instance setup
+  import_playbook: standard_instance.yaml
+
+- name: Cron job for docker
+  import_playbook: docker_cron.yaml
