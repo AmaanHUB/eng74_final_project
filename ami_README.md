@@ -65,3 +65,6 @@ This playbook is specific to installing the dependencies of Jenkins and Jenkins 
         state: present
         force: yes
 ```
+
+### Standard Instance (standard_instance.yaml)
+
