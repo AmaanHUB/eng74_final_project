@@ -11,32 +11,32 @@ resource "aws_instance" "ec2_instance" {
     Name = var.name_tag
   }
 
-  # provisioner "file" {
-  #   source      = "${path.module}/${var.data_file}"
-  #   destination = "/home/ubuntu/${var.data_file}"
+  provisioner "file" {
+    source      = "${path.module}/${var.data_file}"
+    destination = "/home/ubuntu/${var.data_file}"
 
-  #   connection {
-  #     type        = "ssh"
-  #     user        = "ubuntu"
-  #     password    = ""
-  #     private_key = file(var.aws_key_path)
-  #     host        = self.public_ip
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      password    = ""
+      private_key = file(var.aws_key_path)
+      host        = self.public_ip
+    }
+  }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "export APP_IP=${tostring(var.app_ip)}",
-  #     "bash /home/ubuntu/${var.data_file}"
-  #   ]
+  provisioner "remote-exec" {
+    inline = [
+      "export APP_IP=${tostring(var.app_ip)}",
+      "bash /home/ubuntu/${var.data_file}"
+    ]
 
-  #   connection {
-  #     type        = "ssh"
-  #     user        = "ubuntu"
-  #     password    = ""
-  #     private_key = file(var.aws_key_path)
-  #     host        = self.public_ip
-  #   }
-  # }
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      password    = ""
+      private_key = file(var.aws_key_path)
+      host        = self.public_ip
+    }
+  }
 
 }

@@ -29,6 +29,14 @@ resource "aws_security_group" "app_sg" {
   }
 
   ingress {
+    description     = "SSH from my ip"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    cidr_blocks = ["${var.my_ip}/32"]
+  }
+
+  ingress {
     description = "Monitoring"
     from_port   = 19999
     to_port     = 19999

@@ -36,7 +36,7 @@ variable "aws_key_path" {
 }
 
 variable "extra_user_ip" {
-  default = "84.69.102.61"
+  default = "82.34.117.17"
 }
 
 variable "jenkins_file" {
