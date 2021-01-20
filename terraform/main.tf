@@ -66,12 +66,13 @@ module "jenkins" {
   aws_key_path      = var.aws_key_path
 }
 
-# module "app_lb" {
-#   source = "./modules/m_app_lb"
+module "app_lb" {
+  source = "./modules/m_app_lb"
 
-#   app_ami          = var.ami_lb
-#   instance_type    = var.instance_type
-#   app_sg_id        = module.sg.app_sg_id
-#   public_subnet_id = module.vpc.public_subnet_id
-#   vpc_id           = module.vpc.vpc_id
-# }
+  app_ami          = var.ami_lb
+  instance_type    = var.instance_type
+  app_sg_id        = module.sg.app_sg_id
+  public_subnet_id = module.vpc.public_subnet_id
+  vpc_id           = module.vpc.vpc_id
+  key_pair_name = var.aws_key_name
+}
