@@ -14,8 +14,6 @@
           - openjdk-11-jdk
           - python3
           - python3-pip
-            #           - docker
-            #           - docker-compose
 
     - name: Get the Jenkins key from the official servers
       apt_key:
