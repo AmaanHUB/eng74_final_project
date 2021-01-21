@@ -67,6 +67,16 @@ resource "aws_network_acl" "controller_nacl" {
 		from_port = 22
 		to_port = 22
 	}
+
+	# allow SSH from public subnet
+	ingress {
+		protocol = "tcp"
+		rule_no = 150
+		action = "allow"
+		cidr_block = "74.11.1.0/24"
+		from_port = 22
+		to_port = 22
+	}
 	
 	# allow HTTP to all
 	egress {
@@ -127,6 +137,28 @@ resource "aws_network_acl" "controller_nacl" {
 		from_port = 22
 		to_port = 22
 	}
+
+	# allow SSH to public subnet
+	egress {
+		protocol = "tcp"
+		rule_no = 160
+		action = "allow"
+		cidr_block = "74.11.1.0/24"
+		from_port = 22
+		to_port = 22
+	}
+
+	# allow SSH out to everyone in order to connect to github
+	egress {
+		protocol = "tcp"
+		rule_no = 170
+		action = "allow"
+		cidr_block = "0.0.0.0/0"
+		from_port = 22
+		to_port = 22
+	}
+
+	
 
 	tags = {
 		Name = "eng74-fp-controller_nacl"

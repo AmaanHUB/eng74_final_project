@@ -73,6 +73,16 @@ resource "aws_network_acl" "public_nacl" {
 		to_port = 65535
 	}
 	
+	# allow SSH from controller subnet
+	ingress {
+		protocol = "tcp"
+		rule_no = 140
+		action = "allow"
+		cidr_block = "74.11.3.0/24"
+		from_port = 22
+		to_port = 22
+	}
+
 	# allow HTTP to all
 	egress {
 		protocol = "tcp"
@@ -121,6 +131,16 @@ resource "aws_network_acl" "public_nacl" {
 		cidr_block = "74.11.2.0/24"
 		from_port = 27017
 		to_port = 27017
+	}
+
+	# allow SSH to controller subnet
+	egress {
+		protocol = "tcp"
+		rule_no = 150
+		action = "allow"
+		cidr_block = "74.11.3.0/24"
+		from_port = 22
+		to_port = 22
 	}
 
 	tags = {
