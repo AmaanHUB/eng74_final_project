@@ -21,6 +21,56 @@ This playbook is used in both the setup of Jenkins and the Standard Instances, s
       shell: bash /root/kickstart.sh all --non-interactive
 ```
 
+### Standard Instance (standard_instance.yaml)
+
+This is a base image on which the everything is built off, from the app to Jenkins.
+* The  dependencies to install docker as installed
+```yaml
+    - name: Install the docker dependencies
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+```
+
+* The key and repo for docker are added, as well as an update of the cache so that the new source will be read and docker can be installed
+```yaml
+
+    - name: Add the docker key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Adding the docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      notify: update_cache
+```
+
+* Install docker and the relevant programs
+```yaml
+
+    - name: Install docker and related software
+      apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+```
+
+* Finally install docker-compose in case that is needed
+```yaml
+
+    - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+```
+
 ### Jenkins (jenkins.yaml)
 
 This playbook is specific to installing the dependencies of Jenkins and Jenkins itself on a blank Ubuntu instance. This is intended to be used to set up Jenkins in the first place and also be used in disaster recovery scenarios whereby the Jenkins instance and it's subsequent fully-loaded AMI are lost.
@@ -57,7 +107,7 @@ This playbook is specific to installing the dependencies of Jenkins and Jenkins 
         update_cache: yes
 ```
 
-* Finally, Jenkins is installed and `jenkins.service` is enabled.
+* Jenkins is installed and `jenkins.service` is enabled.
 ```yaml
     - name: Installing Jenkins and start
       apt:
@@ -66,7 +116,16 @@ This playbook is specific to installing the dependencies of Jenkins and Jenkins 
         force: yes
 ```
 
-### Standard Instance (standard_instance.yaml)
+* The default user created by Jenkins (jenkins) is assigned to the `docker` group so that it may have easy access to docker's capabilities
+```yaml
+    - name: Add jenkins user to the docker group
+      user:
+        name: jenkins
+        groups: 'docker'
+        append: yes
 
-This is a base image on which the app will run during the deployment stage, as well as being a standard base image on which the Jenkins (and others) will build on top of.
-* The docker dependencies as well as the docker key as well
+    - name: Restart docker.service
+      service:
+        name: docker
+        state: restarted
+```
