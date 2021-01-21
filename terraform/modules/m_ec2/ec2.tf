@@ -28,8 +28,6 @@ resource "aws_instance" "ec2_instance" {
     inline = [
       "export APP_IP=${tostring(var.app_ip)}",
       "export HOSTNAME=${var.hostname}",
-      #"sudo apt install dos2unix",
-      #"dos2unix /home/ubuntu/${var.data_file}",
       "bash /home/ubuntu/${var.data_file}"
     ]
 

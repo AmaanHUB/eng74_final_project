@@ -50,7 +50,7 @@ module "app" {
   aws_key_name      = var.aws_key_name
   name_tag          = "eng74-fp-app"
   aws_key_path      = var.aws_key_path
-  hostname = "app"
+  hostname = "preproduction_app"
 }
 
 # create jenkins instance
