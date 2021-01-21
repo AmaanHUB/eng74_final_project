@@ -36,3 +36,14 @@
         name: jenkins
         state: present
         force: yes
+
+    - name: Add jenkins user to the docker group
+      user:
+        name: jenkins
+        groups: 'docker'
+        append: yes
+
+    - name: Restart docker.service
+      service:
+        name: docker
+        state: restarted

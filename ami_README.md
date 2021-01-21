@@ -68,3 +68,5 @@ This playbook is specific to installing the dependencies of Jenkins and Jenkins 
 
 ### Standard Instance (standard_instance.yaml)
 
+This is a base image on which the app will run during the deployment stage, as well as being a standard base image on which the Jenkins (and others) will build on top of.
+* The docker dependencies as well as the docker key as well
