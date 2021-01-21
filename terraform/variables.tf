@@ -12,7 +12,7 @@ variable "ami_db" {
 }
 
 variable "ami_jenkins" {
-  default = "ami-03e6659e073c9f313"
+  default = "ami-0c38f3ca0f0043f49"
 }
 
 variable "ami_ubuntu" {
@@ -36,7 +36,7 @@ variable "aws_key_path" {
 }
 
 variable "extra_user_ip" {
-  default = "82.34.117.17"
+  default = "81.104.154.91"
 }
 
 variable "jenkins_file" {

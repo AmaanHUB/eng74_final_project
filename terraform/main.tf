@@ -36,6 +36,7 @@ module "bastion" {
   aws_key_name      = var.aws_key_name
   name_tag          = "eng74-fp-bastion"
   aws_key_path      = var.aws_key_path
+  hostname = "bastion"
 }
 
 # create app instance
@@ -49,6 +50,7 @@ module "app" {
   aws_key_name      = var.aws_key_name
   name_tag          = "eng74-fp-app"
   aws_key_path      = var.aws_key_path
+  hostname = "preproduction_app"
 }
 
 # create jenkins instance
@@ -57,13 +59,14 @@ module "jenkins" {
 
   ami_id            = var.ami_jenkins
   subnet_id         = module.vpc.controller_subnet_id
-  instance_type     = var.instance_type
+  instance_type     = "t2.medium"
   security_group_id = module.sg.jenkins_sg_id
   aws_key_name      = var.aws_key_name
   name_tag          = "eng74-fp-jenkins"
   app_ip            = module.app.ec2_private_ip
   data_file         = var.jenkins_file
   aws_key_path      = var.aws_key_path
+  hostname = "jenkins"
 }
 
 module "app_lb" {

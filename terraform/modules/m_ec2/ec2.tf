@@ -27,6 +27,7 @@ resource "aws_instance" "ec2_instance" {
   provisioner "remote-exec" {
     inline = [
       "export APP_IP=${tostring(var.app_ip)}",
+      "export HOSTNAME=${var.hostname}",
       "bash /home/ubuntu/${var.data_file}"
     ]
 

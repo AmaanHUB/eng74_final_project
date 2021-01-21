@@ -21,7 +21,7 @@ resource "aws_security_group" "app_sg" {
   }
 
   ingress {
-    description     = "SSH from bastion"
+    description     = "SSH from bastion and jenkins"
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"

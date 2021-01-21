@@ -16,6 +16,8 @@ variable "aws_key_path" {}
 
 variable "name_tag" {}
 
+variable "hostname" {}
+
 variable "associate_pub_ip" {
   default = true
 }
