@@ -12,7 +12,7 @@ variable "ami_db" {
 }
 
 variable "ami_jenkins" {
-  default = "ami-0c38f3ca0f0043f49"
+  default = "ami-0b92ece2ce5d6163d"
 }
 
 variable "ami_ubuntu" {
