@@ -11,5 +11,5 @@
     - name: Create a cron script that runs a bash script
       cron:
         name: Run docker script
-        hour: "*/1"
+        minute: "*/10"
         job:  "docker stop App; docker system prune -af; docker pull amaanhub/eng74_final_project; docker run -d --name App -p 80:5000 amaanhub/eng74_final_project"

@@ -2,7 +2,7 @@
 	"variables": {
 		"aws_access_key": "{{ env `AWS_ACCESS_KEY` }}",
 		"aws_secret_key": "{{ env `AWS_SECRET_KEY` }}",
-		"file_location": "/home/deviljin/eng74_final_project"
+		"file_location": "/home/amaan/Assorted-Projects/Work/Sparta-Training/DevOps/eng74_final_project"
 	},
 	"builders": [
 		{
@@ -23,7 +23,7 @@
 			},
 			"instance_type": "t2.micro",
 			"ssh_username": "ubuntu",
-			"ami_name": "eng74_load_balancing_final"
+			"ami_name": "eng74_load_balancing_final_v2"
 		}
 	],
 	"provisioners": [
