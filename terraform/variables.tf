@@ -4,7 +4,7 @@ variable "region" {
 }
 
 variable "ami_app" {
-  default = "ami-0c2736f128eb22c2d"
+  default = "ami-048541948bd28c299"
 }
 
 variable "ami_db" {
@@ -12,7 +12,7 @@ variable "ami_db" {
 }
 
 variable "ami_jenkins" {
-  default = "ami-0b92ece2ce5d6163d"
+  default = "ami-0060b90f91711179e"
 }
 
 variable "ami_ubuntu" {
@@ -20,7 +20,7 @@ variable "ami_ubuntu" {
 }
 
 variable "ami_lb" {
-  default = "ami-09841ca4ebfb5c030"
+  default = "ami-088ef6f7a3b78b035"
 }
 
 variable "instance_type" {
