@@ -41,6 +41,7 @@ All the packer creation files here have the same format (`jenkins.json`, `load_b
 ```
 
 * Within this section, Packer calls ansible and the relevant playbook file (one of the `main_*.yaml` super playbooks), with no changes needed to be made, since the file location has been called at the beginning.
+```json
 	"provisioners": [
 		{
 			"type": "ansible",
