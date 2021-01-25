@@ -48,7 +48,7 @@ module "app" {
   instance_type     = var.instance_type
   security_group_id = module.sg.app_sg_id
   aws_key_name      = var.aws_key_name
-  name_tag          = "eng74-fp-app"
+  name_tag          = "eng74-fp-preproduction_app"
   aws_key_path      = var.aws_key_path
   hostname = "preproduction_app"
 }
