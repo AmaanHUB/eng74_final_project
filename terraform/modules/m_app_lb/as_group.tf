@@ -21,11 +21,15 @@ resource "aws_autoscaling_group" "app_as_group" {
     name = "eng74-fp-app_as_group"
     depends_on = [aws_launch_configuration.app_launch_conf]
     launch_configuration = aws_launch_configuration.app_launch_conf.name
-    min_size = 1
-    desired_capacity = 2
-    max_size = 5
+    min_size = 2
+    desired_capacity = 3
+    max_size = 10
     vpc_zone_identifier = [var.public_subnet_id]
     target_group_arns = [aws_lb_target_group.app_lb_target_group.arn]
+
+    lifecycle {
+      create_before_destroy = true
+    }
 
     tag {
       key = "Name"
@@ -33,6 +37,19 @@ resource "aws_autoscaling_group" "app_as_group" {
       propagate_at_launch = true
     }
 }
+
+# # attach austoscaling policy
+# resource "aws_autoscaling_policy" "as_group_policy_simple" {
+#   name = "eng74-fp-as_group_policy-simple"
+#   autoscaling_group_name = aws_autoscaling_group.app_as_group.name
+#   adjustment_type = "ChangeInCapacity"
+#   target_tracking_configuration {
+#     predefined_metric_specification {
+#         predefined_metric_type = "ASGAverageCPUUtilization"
+#     }
+#     target_value = 80
+#   }
+# }
 
 
 # attach austoscaling policy
