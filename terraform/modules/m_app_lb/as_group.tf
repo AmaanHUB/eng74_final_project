@@ -38,26 +38,14 @@ resource "aws_autoscaling_group" "app_as_group" {
     }
 }
 
-# # attach austoscaling policy
-# resource "aws_autoscaling_policy" "as_group_policy_simple" {
-#   name = "eng74-fp-as_group_policy-simple"
-#   autoscaling_group_name = aws_autoscaling_group.app_as_group.name
-#   adjustment_type = "ChangeInCapacity"
-#   target_tracking_configuration {
-#     predefined_metric_specification {
-#         predefined_metric_type = "ASGAverageCPUUtilization"
-#     }
-#     target_value = 80
-#   }
-# }
-
-
 # attach austoscaling policy
-resource "aws_autoscaling_policy" "as_group_policy" {
-  name = "eng74-fp-as_group_policy-cpu"
+resource "aws_autoscaling_policy" "as_group_policy_maxcpu" {
+  name = "eng74-fp-as_group_policy-max_cpu"
   autoscaling_group_name = aws_autoscaling_group.app_as_group.name
   policy_type = "TargetTrackingScaling"
 
+  scaling_adjustment = 1
+  
   target_tracking_configuration {
     predefined_metric_specification {
         predefined_metric_type = "ASGAverageCPUUtilization"
@@ -65,3 +53,20 @@ resource "aws_autoscaling_policy" "as_group_policy" {
     target_value = 80
   }
 }
+
+# # attach austoscaling policy
+# resource "aws_autoscaling_policy" "as_group_policy_mincpu" {
+#   name = "eng74-fp-as_group_policy-min_cpu"
+#   autoscaling_group_name = aws_autoscaling_group.app_as_group.name
+#   policy_type = "TargetTrackingScaling"
+
+#   scaling_adjustment = -1
+  
+#   target_tracking_configuration {
+#     predefined_metric_specification {
+#         predefined_metric_type = "ASGAverageCPUUtilization"
+#     }
+#     target_value = 10
+#   }
+# }
+
