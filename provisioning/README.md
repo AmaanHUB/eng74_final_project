@@ -61,7 +61,7 @@ This is a base image on which the everything is built off, from the app to Jenki
           - containerd.io
 ```
 
-* Finally install docker-compose in case that is needed
+* Install docker-compose in case that is needed
 ```yaml
 
     - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
@@ -69,6 +69,15 @@ This is a base image on which the everything is built off, from the app to Jenki
         url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 'u+x,g+x'
+```
+
+* Finally, set the Ubuntu default user in the docker group
+```yaml
+    - name: Add ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: 'docker'
+        append: yes
 ```
 
 ### Jenkins (jenkins.yaml)
@@ -128,4 +137,60 @@ This playbook is specific to installing the dependencies of Jenkins and Jenkins 
       service:
         name: docker
         state: restarted
+```
+
+### Cron (docker_cron.yaml)
+
+* This is a small playbook to create a small cron script that will pull the latest version of the app from DockerHub and run it
+```yaml
+    - name: Create a cron script that runs a bash script
+      cron:
+        name: Run docker script
+        minute: "*/10"
+        job:  "docker stop App; docker system prune -af; docker pull amaanhub/eng74_final_project; docker run -d --name App -p 80:5000 amaanhub/eng74_final_project"
+```
+
+### Super Playbooks
+
+* Super playbooks are an amalgamation of smaller playbooks that contains certain tasks, so that they can be tailored to a certain type of image that will be made. Additionally, it allows the reuse of code rather than having to create it for each individial image that will be created with Packer.
+
+#### main_standard.yaml
+
+* This is a playbook that would create the standard EC2 instance which most, if not all, the other EC2 instances will be based upon.
+
+```yaml
+- name: Netdata setup
+  import_playbook: netdata_setup.yaml
+
+- name: EC2 instance setup
+  import_playbook: standard_instance.yaml
+```
+
+#### main_jenkins.yaml
+
+* As the name suggests, this 'super playbook' is used to create and provision an image in which Jenkins will run, with all the dependencies for the specific tasks we have assigned to it (.i.e. build docker images)
+```yaml
+- name: Netdata setup
+  import_playbook: netdata_setup.yaml
+
+- name: Install docker etc
+  import_playbook: standard_instance.yaml
+
+- name: EC2 instance setup
+  import_playbook: jenkins.yaml
+```
+
+#### main_load_balancing.yaml
+
+* The image that this helps create is used within load balancing on AWS, and given that we wanted an easy way for these images to update, we added a cron job to upate it regularly (`docker_cron.yaml`). For all intents and purposes, it is exactly the same as `main_standard.yaml` except for the cron job.
+
+```yaml
+- name: Netdata setup
+  import_playbook: netdata_setup.yaml
+
+- name: EC2 instance setup
+  import_playbook: standard_instance.yaml
+
+- name: Cron job for docker
+  import_playbook: docker_cron.yaml
 ```
