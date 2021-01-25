@@ -61,7 +61,7 @@ This is a base image on which the everything is built off, from the app to Jenki
           - containerd.io
 ```
 
-* Finally install docker-compose in case that is needed
+* Install docker-compose in case that is needed
 ```yaml
 
     - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
@@ -69,6 +69,15 @@ This is a base image on which the everything is built off, from the app to Jenki
         url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 'u+x,g+x'
+```
+
+* Finally, set the Ubuntu default user in the docker group
+```yaml
+    - name: Add ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: 'docker'
+        append: yes
 ```
 
 ### Jenkins (jenkins.yaml)
