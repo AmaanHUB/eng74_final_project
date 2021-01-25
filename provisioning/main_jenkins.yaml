@@ -1,0 +1,11 @@
+---
+
+- name: Netdata setup
+  import_playbook: netdata_setup.yaml
+
+- name: Install docker etc
+  import_playbook: standard_instance.yaml
+
+- name: EC2 instance setup
+  import_playbook: jenkins.yaml
+

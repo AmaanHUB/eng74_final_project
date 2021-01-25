@@ -1,0 +1,53 @@
+---
+
+- name: Set up a default image
+  hosts: default
+
+  gather_facts: yes
+
+  become: yes
+
+  tasks:
+    - name: Install the docker dependencies
+      apt:
+        pkg:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - software-properties-common
+
+    - name: Add the docker key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Adding the docker repo
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+      notify: update_cache
+
+    - name: Install docker and related software
+      apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: Get docker-compose files and install locally (as this is how it is done on Ubuntu)
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 'u+x,g+x'
+
+    - name: Add ubuntu user to the docker group
+      user:
+        name: ubuntu
+        groups: 'docker'
+        append: yes
+
+  handlers:
+    - name: update_cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600

@@ -1,0 +1,24 @@
+---
+- name: netdata installation
+  hosts: default
+
+  gather_facts: yes
+
+  become: yes
+
+  tasks:
+    - name: Running APT Update && Upgrade
+      apt:
+        upgrade: "yes"
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+
+    - name: get the file for installation
+      get_url:
+        url: https://my-netdata.io/kickstart.sh
+        dest: /root/
+        mode: "u+x,g+x"
+
+    - name: install the file
+      shell: bash /root/kickstart.sh all --non-interactive

@@ -1,0 +1,15 @@
+---
+
+- name: Cron for load-balacing instances
+  hosts: default
+
+  become: yes
+
+  gather_facts: yes
+
+  tasks:
+    - name: Create a cron script that runs a bash script
+      cron:
+        name: Run docker script
+        minute: "*/10"
+        job:  "docker stop App; docker system prune -af; docker pull amaanhub/eng74_final_project; docker run -d --name App -p 80:5000 amaanhub/eng74_final_project"

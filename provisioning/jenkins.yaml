@@ -8,19 +8,12 @@
   become: yes
 
   tasks:
-    - name: Update
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-
     - name: Install dependencies
       apt:
         pkg:
           - openjdk-11-jdk
           - python3
           - python3-pip
-            #           - docker
-            #           - docker-compose
 
     - name: Get the Jenkins key from the official servers
       apt_key:
@@ -43,3 +36,14 @@
         name: jenkins
         state: present
         force: yes
+
+    - name: Add jenkins user to the docker group
+      user:
+        name: jenkins
+        groups: 'docker'
+        append: yes
+
+    - name: Restart docker.service
+      service:
+        name: docker
+        state: restarted
